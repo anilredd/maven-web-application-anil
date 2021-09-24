@@ -4,7 +4,7 @@ node
  
  echo "Jenkins Home ${env.JENKINS_HOME}"
  echo "Jenkins Url ${env.JENKINS_URL}"
-  properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2')), [$class: 'JobLocalConfiguration', changeReasonComment: '']])
+ properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2')), [$class: 'JobLocalConfiguration', changeReasonComment: '']])
  properties([[$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([pollSCM('* * * * *')])])
  stage ('git checkout')
  {
