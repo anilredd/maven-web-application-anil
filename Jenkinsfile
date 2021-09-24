@@ -2,8 +2,8 @@ node
 {
  def mavenHome = tool name: "maven3.8.2"  
  
- echo "Jenkins Home ${evn.JENKINS_HOME}"
- echo "Jenkins Url ${evn.JENKINS_URL}"
+ echo "Jenkins Home ${env.JENKINS_HOME}"
+ echo "Jenkins Url ${env.JENKINS_URL}"
  echo "JOB Name ${env.JOB_NAME}"
  
  stage ('git checkout')
