@@ -1,0 +1,55 @@
+pipeline
+{
+
+agent any
+
+tools {
+ maven 'maven3.8.2'
+}
+
+triggers{
+ pollSCM('* * * * *')    
+}
+
+options{
+    
+    // Add timestamps to console output
+    timestamps()
+   buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '3', daysToKeepStr: '', numToKeepStr: '3')) 
+    
+}
+
+stages{
+
+  stage('CheckOutCode')
+  {
+    steps{
+    git credentialsId: '1a51840c-689d-4fa7-a36b-b3d428eedf3d', url: 'https://github.com/anilredd/-maven-web-application.git'
+	}
+  }
+  
+  stage('Build')
+  {
+   steps{
+   sh "mvn clean package"
+   }
+  }
+}
+  post{
+  
+   success{
+	 emailext body: '''Build is over - Declarative way..
+
+	 Regards,
+	 Mithun Technologies,
+	 9980923226''', subject: 'Build is successfull - Declarative way..', to: 'devopstrainingblr@gmail.com,bhaskar0504@gmail.com'
+   }
+   failure{
+   emailext body: '''Build is  failed - Declarative way..
+
+   Regards,
+   Mithun Technologies,
+   9980923226''', subject: 'Build is over - Declarative way..', to: 'devopstrainingblr@gmail.com,bhaskar0504@gmail.com'
+   }
+  }
+}
